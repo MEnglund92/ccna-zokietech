@@ -2132,8 +2132,8 @@ let flashTrans = false;
 let flashCategory = 'all';
 let matchLeft = []; let matchRight = []; let matchSelected = null; let matchTrans = false;
 
-function getActiveData() { return currentCourse===-1 ? courses.flatMap(c=>c.entries) : courses[currentCourse].entries; }
-function getActiveCats() { return currentCourse===-1 ? courses.flatMap(c=>c.categories) : courses[currentCourse].categories; }
+function getActiveData() { return currentCourse===-1 ? [].concat(...courses.map(c=>c.entries)) : courses[currentCourse].entries; }
+function getActiveCats() { return currentCourse===-1 ? [].concat(...courses.map(c=>c.categories)) : courses[currentCourse].categories; }
 function getCatName(catId) { const c = getActiveCats().find(c=>c.id===catId); return c ? c.name : catId; }
 function getCatColor(catId) { const c = getActiveCats().find(c=>c.id===catId); return c ? c.color : '#888'; }
 function updateFullOrder() { fullOrder = getActiveData().map((_,i)=>i); }
@@ -2486,7 +2486,7 @@ function updateMatchCourseSel(){
 }
 function updateMatchCategorySel(){
   const courseVal = document.getElementById('matchCourse').value;
-  const cats = courseVal==='all' ? courses.flatMap(c=>c.categories) : courses[parseInt(courseVal)].categories;
+  const cats = courseVal==='all' ? [].concat(...courses.map(c=>c.categories)) : courses[parseInt(courseVal)].categories;
   const sel = document.getElementById('matchCategory');
   sel.innerHTML = '<option value="all">All Categories</option>'+
     cats.map(c=>'<option value="'+c.id+'">'+c.name+'</option>').join('');
@@ -2500,7 +2500,7 @@ document.getElementById('matchCategory').addEventListener('change',initMatch);
 function getMatchData(){
   const courseVal = document.getElementById('matchCourse').value;
   const catVal = document.getElementById('matchCategory').value;
-  let data = courseVal==='all' ? courses.flatMap(c=>c.entries) : courses[parseInt(courseVal)].entries;
+  let data = courseVal==='all' ? [].concat(...courses.map(c=>c.entries)) : courses[parseInt(courseVal)].entries;
   if(catVal!=='all') data = data.filter(e=>e.category===catVal);
   return data;
 }
@@ -2918,7 +2918,7 @@ document.getElementById('themeToggle').addEventListener('click',function(){
 });
 // Exam
 function getExamConcepts(courseIdx){
-  if(courseIdx===-1) return Object.values(concepts).flat();
+  if(courseIdx===-1) return [].concat(...Object.values(concepts));
   const key = courses[courseIdx].id;
   return concepts[key]||[];
 }
