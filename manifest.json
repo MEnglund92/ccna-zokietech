@@ -1,0 +1,13 @@
+{
+  "name": "CCNA - ZokieTech",
+  "short_name": "CCNA",
+  "description": "Flashcards for CCNA network certification",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#388e3c",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
