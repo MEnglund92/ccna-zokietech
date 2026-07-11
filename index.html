@@ -3034,7 +3034,7 @@ updateMatchCourseSel();
 updateMatchCategorySel();
 renderFlash();
 renderDashboard();
-if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').then(r => { r.addEventListener('updatefound', () => { const n = r.installing; n.addEventListener('statechange', () => { if (n.state === 'activated') window.location.reload(); }); }); }).catch(()=>{}); }); }
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 </script>
 </body>
 </html>
