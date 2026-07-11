@@ -577,7 +577,7 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
 </div>
 </div>
 
-<script>
+<script>try{
 const courses = [
   {
     id: "kurs1", name: "Course 1 - Network Technology",
@@ -3035,6 +3035,7 @@ updateMatchCategorySel();
 renderFlash();
 renderDashboard();
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+}catch(e){try{document.body.style.cssText='padding:30px;color:#e94560;font-size:16px;white-space:pre-wrap;font-family:monospace';document.body.textContent='JS ERROR:\n'+e.message+'\n\n'+(e.stack||'');}catch(e2){}}
 </script>
 </body>
 </html>
