@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -399,14 +399,14 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
 </header>
 
 <div class="tabs">
-  <button class="tab active" data-tab="browse">ðŸ” Browse</button>
-  <button class="tab" data-tab="flash">ðŸƒ Flashcards</button>
-  <button class="tab" data-tab="quiz">â“ Quiz</button>
-  <button class="tab" data-tab="match">ðŸŽ¯ Match</button>
-  <button class="tab" data-tab="concepts">ðŸ“š Course Content</button>
-  <button class="tab" data-tab="resources">ðŸ“Ž Resources</button>
-  <button class="tab" data-tab="exam">ðŸ“ Exam</button>
-  <button class="tab" data-tab="dashboard">ðŸ“Š Dashboard</button>
+  <button class="tab active" data-tab="browse">🔍 Browse</button>
+  <button class="tab" data-tab="flash">🃏 Flashcards</button>
+  <button class="tab" data-tab="quiz">❓ Quiz</button>
+  <button class="tab" data-tab="match">🎯 Match</button>
+  <button class="tab" data-tab="concepts">📚 Course Content</button>
+  <button class="tab" data-tab="resources">📎 Resources</button>
+  <button class="tab" data-tab="exam">📝 Exam</button>
+  <button class="tab" data-tab="dashboard">📊 Dashboard</button>
 </div>
 
 <div class="tab-container">
@@ -446,9 +446,9 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
     </div>
     <div class="flash-hint">Tap card to flip</div>
     <div class="flash-nav">
-      <button id="prevBtn">â—€ Prev</button>
+      <button id="prevBtn">◀ Prev</button>
       <button id="shuffleBtn" class="shuffle-btn">Shuffle</button>
-      <button id="nextBtn">Next â–¶</button>
+      <button id="nextBtn">Next ▶</button>
     </div>
   </div>
 </div>
@@ -475,7 +475,7 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
       <div class="q-category" id="qCategory"></div>
     </div>
     <div class="quiz-options" id="quizOptions"></div>
-    <button class="quiz-next" id="quizNext" disabled>Next â–¶</button>
+    <button class="quiz-next" id="quizNext" disabled>Next ▶</button>
   </div>
   <div class="quiz-result" id="quizResult" style="display:none">
     <h2>Quiz Complete!</h2>
@@ -542,7 +542,7 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
   <div class="exam-controls" id="examSetup">
     <label for="examCount">Questions:</label>
     <select id="examCount"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="0">All</option></select>
-    <button class="exam-start-btn" id="examStartBtn">â–¶ Start Exam</button>
+    <button class="exam-start-btn" id="examStartBtn">▶ Start Exam</button>
   </div>
   <div id="examArea" style="display:none">
     <div class="quiz-progress">
@@ -556,8 +556,8 @@ button,select,.tab,.quiz-opt,.match-item,.filter-btn,.exam-start-btn,.quiz-next,
     </div>
     <div class="quiz-options" id="examOptions"></div>
     <div class="exam-nav">
-      <button class="quiz-next" id="examPrev" disabled>â—€ Previous</button>
-      <button class="quiz-next" id="examNext" disabled>Next â–¶</button>
+      <button class="quiz-next" id="examPrev" disabled>◀ Previous</button>
+      <button class="quiz-next" id="examNext" disabled>Next ▶</button>
     </div>
   </div>
   <div class="exam-result" id="examResult" style="display:none">
@@ -729,7 +729,7 @@ function renderBrowse(){
   if(q) items = items.filter(i=>i.phrase.toLowerCase().includes(q)||i.meaning.toLowerCase().includes(q)||i.translation.toLowerCase().includes(q));
   document.getElementById('countLabel').textContent = 'Showing '+items.length+' items';
   if(!items.length){
-    document.getElementById('cardGrid').innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸ“­</div><div class="empty-text">No items found</div><div class="empty-sub">Add some data to get started</div></div>';
+    document.getElementById('cardGrid').innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No items found</div><div class="empty-sub">Add some data to get started</div></div>';
     return;
   }
   document.getElementById('cardGrid').innerHTML = items.map(i=>{
@@ -781,12 +781,12 @@ function rebuildFlashOrder(){
 function renderFlash(){
   const data = getActiveData();
   if(!data.length){
-    document.getElementById('flashWrapper').innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸƒ</div><div class="empty-text">No flashcards available</div><div class="empty-sub">Add some data to start studying</div></div>';
+    document.getElementById('flashWrapper').innerHTML = '<div class="empty-state"><div class="empty-icon">🃏</div><div class="empty-text">No flashcards available</div><div class="empty-sub">Add some data to start studying</div></div>';
     return;
   }
   if(!flashOrder.length) rebuildFlashOrder();
   if(flashIdx >= flashOrder.length) flashIdx = 0;
-  if(!flashOrder.length){ document.getElementById('flashWrapper').innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸƒ</div><div class="empty-text">No cards match the selected category</div></div>'; return; }
+  if(!flashOrder.length){ document.getElementById('flashWrapper').innerHTML = '<div class="empty-state"><div class="empty-icon">🃏</div><div class="empty-text">No cards match the selected category</div></div>'; return; }
   const item = data[flashOrder[flashIdx]];
   document.getElementById('fPhrase').textContent = item.phrase;
   document.getElementById('fCategory').textContent = getCatName(item.category);
@@ -847,14 +847,14 @@ document.getElementById('quizTransBtn').addEventListener('click',()=>{
 function initQuiz(){
   const rawData = getActiveData();
   if(!rawData.length){
-    document.getElementById('quizArea').innerHTML = '<div class="empty-state"><div class="empty-icon">â“</div><div class="empty-text">No quiz data available</div><div class="empty-sub">Add some data to start quizzing</div></div>';
+    document.getElementById('quizArea').innerHTML = '<div class="empty-state"><div class="empty-icon">❓</div><div class="empty-text">No quiz data available</div><div class="empty-sub">Add some data to start quizzing</div></div>';
     document.getElementById('quizResult').style.display='none';
     return;
   }
   const quizCat = document.getElementById('quizCategory').value;
   const data = quizCat==='all' ? rawData : rawData.filter(e=>e.category===quizCat);
   if(!data.length){
-    document.getElementById('quizArea').innerHTML = '<div class="empty-state"><div class="empty-icon">â“</div><div class="empty-text">No quiz data available for this category</div><div class="empty-sub">Choose a different category</div></div>';
+    document.getElementById('quizArea').innerHTML = '<div class="empty-state"><div class="empty-icon">❓</div><div class="empty-text">No quiz data available for this category</div><div class="empty-sub">Choose a different category</div></div>';
     document.getElementById('quizResult').style.display='none';
     return;
   }
@@ -911,7 +911,7 @@ function showQuizResult(){
   document.getElementById('quizMsg').textContent = getScoreMessage(pct);
   const reviewEl = document.getElementById('quizReview');
   if(quizMistakes.length){
-    reviewEl.innerHTML = '<div class="review-title">ðŸ“ Review Mistakes ('+quizMistakes.length+')</div>'+
+    reviewEl.innerHTML = '<div class="review-title">📝 Review Mistakes ('+quizMistakes.length+')</div>'+
       quizMistakes.map(m=>'<div class="review-card"><div class="r-phrase">'+m.phrase+'</div><div class="r-meaning">'+m.meaning+'</div><div class="r-translation">'+m.translation+'</div></div>').join('');
   } else {
     reviewEl.innerHTML = '';
@@ -967,7 +967,7 @@ function getMatchData(){
 function initMatch(){
   const data = getMatchData();
   if(!data.length){
-    document.getElementById('matchGrid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">ðŸŽ¯</div><div class="empty-text">No match data available</div><div class="empty-sub">Add some data to play the matching game</div></div>';
+    document.getElementById('matchGrid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🎯</div><div class="empty-text">No match data available</div><div class="empty-sub">Add some data to play the matching game</div></div>';
     document.getElementById('matchStatus').textContent = '';
     document.getElementById('matchResult').classList.remove('show');
     return;
@@ -1386,7 +1386,7 @@ function initExam(){
   const courseIdx = currentCourse;
   let allConcepts = getExamConcepts(courseIdx);
   if(!allConcepts.length){
-    document.getElementById('examArea').innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸ“</div><div class="empty-text">No exam data available</div></div>';
+    document.getElementById('examArea').innerHTML = '<div class="empty-state"><div class="empty-icon">📝</div><div class="empty-text">No exam data available</div></div>';
     return;
   }
   let questions = [];
@@ -1441,7 +1441,7 @@ function renderExamQ(){
   });
   document.getElementById('examPrev').disabled = examIdx===0;
   document.getElementById('examNext').disabled = examAnswers[examIdx]===null;
-  document.getElementById('examNext').textContent = examIdx===examTotal-1?'Submit Exam':'Next â–¶';
+  document.getElementById('examNext').textContent = examIdx===examTotal-1?'Submit Exam':'Next ▶';
 }
 function submitExam(){
   let correct = 0; let mistakes = [];
@@ -1459,12 +1459,12 @@ function submitExam(){
   document.getElementById('examFinalScore').textContent = correct+'/'+examQuestions.length;
   document.getElementById('examFinalPct').textContent = pct+'%';
   const badge = document.getElementById('examPassBadge');
-  badge.textContent = pct>=70?'âœ… PASS':'âŒ FAIL';
+  badge.textContent = pct>=70?'✅ PASS':'❌ FAIL';
   badge.className = pct>=70?'exam-pass':'exam-fail';
   document.getElementById('examMsg').textContent = getScoreMessage(pct);
   const reviewEl = document.getElementById('examReview');
   if(mistakes.length){
-    reviewEl.innerHTML = '<div class="review-title">ðŸ“ Review ('+mistakes.length+' wrong)</div>'+mistakes.map(m=>{const optsHtml=m.options.map((opt,i)=>{let c='exam-review-opt';if(i===m.correctIdx)c+=' exam-review-correct';else if(i===m.userIdx)c+=' exam-review-wrong';return '<div class="'+c+'">'+opt+'</div>';}).join('');return '<div class="review-card"><div class="r-phrase">'+m.title+'</div>'+optsHtml+'</div>';}).join('');
+    reviewEl.innerHTML = '<div class="review-title">📝 Review ('+mistakes.length+' wrong)</div>'+mistakes.map(m=>{const optsHtml=m.options.map((opt,i)=>{let c='exam-review-opt';if(i===m.correctIdx)c+=' exam-review-correct';else if(i===m.userIdx)c+=' exam-review-wrong';return '<div class="'+c+'">'+opt+'</div>';}).join('');return '<div class="review-card"><div class="r-phrase">'+m.title+'</div>'+optsHtml+'</div>';}).join('');
   } else reviewEl.innerHTML = '';
   if(currentCourse>=0){
     const courseId = courses[currentCourse].id;
