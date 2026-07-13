@@ -1482,7 +1482,7 @@ document.getElementById('examPrev').addEventListener('click',()=>{examIdx--;rend
 document.getElementById('examRestart').addEventListener('click',()=>{document.getElementById('examResult').style.display='none';initExam();});
 document.getElementById('examStartBtn').addEventListener('click',initExam);
 
-// Init
+// Init — populate selectors, render only the active (browse) tab; others render on first tab click
 initCourseSelector();
 updateFullOrder();
 flashOrder = [...fullOrder];
@@ -1492,8 +1492,6 @@ updateFlashCategorySel();
 updateQuizCategorySel();
 updateMatchCourseSel();
 updateMatchCategorySel();
-renderFlash();
-renderDashboard();
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 }catch(e){try{document.body.style.cssText='padding:30px;color:#e94560;font-size:16px;white-space:pre-wrap;font-family:monospace';document.body.textContent='JS ERROR:\n'+e.message+'\n\n'+(e.stack||'');}catch(e2){}}
 </script>
