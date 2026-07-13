@@ -1,7 +1,8 @@
-const CACHE = 'ccna-zokietech-v5';
+const CACHE = 'ccna-zokietech-v6';
 const FILES = [
   '.',
   'index.html',
+  'data.js',
   'manifest.json',
   'icons/icon-180.png',
   'icons/icon-192.png',
