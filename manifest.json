@@ -1,7 +1,7 @@
 {
-  "name": "CCNA - ZokieTech",
-  "short_name": "CCNA",
-  "description": "Flashcards for CCNA network certification",
+  "name": "ZokieTech",
+  "short_name": "ZokieTech",
+  "description": "Flashcards for ZokieTech network certification",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a14",
