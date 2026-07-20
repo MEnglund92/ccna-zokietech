@@ -294,7 +294,7 @@
     ]
   },
   {
-    id: "allman-linux", name: "Linux & Open Source Tools",
+    id: "allman-linux", name: "Course 8 - Linux & Open Source Tools",
     categories: [
       { id: "shell", name: "Shell & CLI", color: "#f9a825" },
       { id: "admin", name: "System Administration", color: "#66bb6a" },
@@ -318,7 +318,7 @@
     ]
   },
   {
-    id: "allman-python", name: "Python & Network Automation",
+    id: "allman-python", name: "Course 9 - Python & Network Automation",
     categories: [
       { id: "basics", name: "Python Basics", color: "#ff7043" },
       { id: "automation", name: "Network Automation", color: "#ab47bc" },
