@@ -1,4 +1,4 @@
-const CACHE = 'ccna-zokietech-v7';
+const CACHE = 'ccna-zokietech-v8';
 const FILES = [
   '.',
   'index.html',
