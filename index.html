@@ -1099,9 +1099,9 @@ function renderDashboard(){
     const st = q.taken===0 ? 'Not Started' : (avg>=80 ? 'Mastered' : (avg>=50 ? 'In Progress' : 'Needs Review'));
     const sc = q.taken===0 ? '#666' : (avg>=80 ? '#2e7d32' : (avg>=50 ? '#f57f17' : '#c62828'));
     html += '<div class="dash-card" style="border-left-color:'+sc+'"><div class="dash-header"><h3>'+
-      c.name.replace('Kurs ','K')+'</h3><span class="dash-course-status" style="background:'+sc+'">'+st+'</span></div>'+
-      '<div class="dash-card-body">'+
-      '<div class="dash-metric"><span class="dash-metric-lbl">Quizzes</span><span class="dash-metric-val">'+q.taken+'</span></div>'+
+       c.name+'</h3><span class="dash-course-status" style="background:'+sc+'">'+st+'</span></div>'+
+       '<div class="dash-card-body">'+
+       '<div class="dash-metric"><span class="dash-metric-lbl">Quizzes</span><span class="dash-metric-val">'+q.taken+'</span></div>'+
       '<div class="dash-metric"><span class="dash-metric-lbl">Best Quiz</span><span class="dash-metric-val">'+q.best+'%</span></div>'+
       '<div class="dash-metric"><span class="dash-metric-lbl">Avg Quiz</span><span class="dash-metric-val">'+avg+'%</span></div>'+
       '<div class="dash-metric"><span class="dash-metric-lbl">Exams</span><span class="dash-metric-val">'+e.taken+'</span></div>'+
@@ -1119,7 +1119,7 @@ function renderDashboard(){
     const avg = total>0 ? Math.round(q.totalCorrect/total*100) : 0;
     const st = q.taken===0&&e.taken===0 ? 'Not Started' : ((avg>=80||e.best>=70) ? 'Mastered' : (avg>=50||e.taken>0 ? 'In Progress' : 'Needs Review'));
     const sc = q.taken===0&&e.taken===0 ? '#666' : ((avg>=80||e.best>=70) ? '#2e7d32' : (avg>=50||e.taken>0 ? '#f57f17' : '#c62828'));
-    html += '<div class="planner-card" style="border-top-color:'+sc+'"><h3>'+c.name.replace('Kurs ','K')+'</h3>'+
+    html += '<div class="planner-card" style="border-top-color:'+sc+'"><h3>'+c.name+'</h3>'+
       '<div class="planner-row"><span>Status</span><span style="color:'+sc+';font-weight:600">'+st+'</span></div>'+
       '<div class="planner-row"><span>Best Quiz</span><span>'+q.best+'%</span></div>'+
       '<div class="planner-row"><span>Best Exam</span><span>'+e.best+'%</span></div>'+
@@ -1129,7 +1129,11 @@ function renderDashboard(){
   });
   html += '</div></div>';
 
-  html += '<div style="text-align:center;margin-top:18px"><button class="dash-reset-btn" id="resetStatsBtn">Reset All Data</button></div>';
+  html += '<div style="text-align:center;margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+    '<button class="dash-reset-btn" id="exportStatsBtn">Backup Progress</button>'+
+    '<button class="dash-reset-btn" id="importStatsBtn">Restore Progress</button>'+
+    '<input type="file" id="importStatsFile" accept=".json" style="display:none">'+
+    '<button class="dash-reset-btn" id="resetStatsBtn">Reset All Data</button></div>';
 
   document.getElementById('dashGrid').innerHTML = html;
   document.getElementById('resetStatsBtn').addEventListener('click',()=>{
@@ -1137,6 +1141,36 @@ function renderDashboard(){
       courses.forEach(c => saveStats(c.id,{quiz:{taken:0,best:0,totalCorrect:0,totalIncorrect:0,lastScore:0},match:{rounds:0},exam:{taken:0,best:0,totalCorrect:0,totalIncorrect:0,lastScore:0}}));
       renderDashboard();
     }
+  });
+  document.getElementById('exportStatsBtn').addEventListener('click',()=>{
+    const data = {};
+    courses.forEach(c => { data[c.id] = loadStats(c.id); });
+    data._exportedAt = new Date().toISOString();
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'studieprogress_backup_'+new Date().toISOString().slice(0,10)+'.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+  document.getElementById('importStatsBtn').addEventListener('click',()=>document.getElementById('importStatsFile').click());
+  document.getElementById('importStatsFile').addEventListener('change',function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      try {
+        const data = JSON.parse(ev.target.result);
+        let count = 0;
+        courses.forEach(c => {
+          if(data[c.id]){ saveStats(c.id,data[c.id]); count++; }
+        });
+        alert('Restored progress for '+count+' courses!');
+        renderDashboard();
+      } catch(err){ alert('Invalid backup file: '+err.message); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
   });
 }
 
